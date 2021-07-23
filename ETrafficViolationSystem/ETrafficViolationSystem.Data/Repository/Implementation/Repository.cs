@@ -23,7 +23,14 @@ namespace ETrafficViolationSystem.Data.Repository.Implementation
 
         public async Task<IQueryable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate = null)
         {
-            return await (Task<IQueryable<TEntity>>)_dbSet.Where(predicate).AsQueryable();
+            if (predicate == null)
+                return _dbSet;
+            return await (Task<IQueryable<TEntity>>)_dbSet.Where(predicate);
+        }
+
+        public async Task<TEntity> GetById(object id)
+        {
+            return await _dbSet.FindAsync(id);
         }
 
         public async Task Add(TEntity entity)

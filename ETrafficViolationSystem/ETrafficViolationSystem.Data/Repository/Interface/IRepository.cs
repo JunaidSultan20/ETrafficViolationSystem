@@ -11,6 +11,8 @@ namespace ETrafficViolationSystem.Data.Repository.Interface
 
         Task<IQueryable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate = null);
 
+        Task<TEntity> GetById(object id);
+
         Task Add(TEntity entity);
 
         Task Update(TEntity entity);
