@@ -19,7 +19,7 @@ jobs:
     - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.301'
+        dotnet-version: '5.0.x'
         include-prerelease: true
 
     - name: Build with dotnet
@@ -53,5 +53,5 @@ jobs:
       with:
         app-name: 'ETrafficViolationSystemAPI'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_24bb6c0050194322b4099a502b4bf3fc }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_0c3d282dc39f437f9b4c43e6f87f78c0 }}
         package: .
