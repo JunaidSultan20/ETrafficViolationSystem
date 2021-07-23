@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ETrafficViolationSystem.Data\ETrafficViolationSystem.Data.csproj" />
     <ProjectReference Include="..\ETrafficViolationSystem.Service\ETrafficViolationSystem.Service.csproj" />
   </ItemGroup>
