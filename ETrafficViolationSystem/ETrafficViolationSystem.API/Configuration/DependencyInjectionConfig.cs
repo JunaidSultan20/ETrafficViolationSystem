@@ -17,6 +17,7 @@ namespace ETrafficViolationSystem.API.Configuration
         public static void AddScoped(IServiceCollection service)
         {
             service.AddScoped<IAccountService, AccountService>();
+            service.AddScoped<ICountryService, CountryService>();
             service.AddScoped<IUnitOfWork, UnitOfWork>();
             service.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             service.AddScoped<UserManager<Users>>();

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ETrafficViolationSystem.Common\ETrafficViolationSystem.Common.csproj" />
+    <ProjectReference Include="..\ETrafficViolationSystem.Data\ETrafficViolationSystem.Data.csproj" />
     <ProjectReference Include="..\ETrafficViolationSystem.Entities\ETrafficViolationSystem.Entities.csproj" />
   </ItemGroup>
 
