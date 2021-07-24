@@ -9,14 +9,14 @@ namespace ETrafficViolationSystem.Data.Repository.Interface
     {
         Task<int> Count { get; }
 
-        Task<IQueryable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate = null);
+        Task<IQueryable<TEntity>> Get(Expression<Func<TEntity, bool>> expression);
 
-        Task<TEntity> GetById(object id);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
 
         Task Add(TEntity entity);
 
         Task Update(TEntity entity);
 
-        Task<bool> Delete(object id);
+        Task Delete(TEntity entity);
     }
 }

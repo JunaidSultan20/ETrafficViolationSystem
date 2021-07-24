@@ -21,16 +21,14 @@ namespace ETrafficViolationSystem.Data.Repository.Implementation
 
         public Task<int> Count => _dbSet.CountAsync();
 
-        public async Task<IQueryable<TEntity>> Get(Expression<Func<TEntity, bool>> predicate = null)
+        public Task<IQueryable<TEntity>> Get(Expression<Func<TEntity, bool>> expression)
         {
-            if (predicate == null)
-                return _dbSet;
-            return await (Task<IQueryable<TEntity>>)_dbSet.Where(predicate);
+            return Task.Run(() => _dbSet.Where(expression).AsNoTracking().AsQueryable());
         }
 
-        public async Task<TEntity> GetById(object id)
+        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FindAsync(expression);
         }
 
         public async Task Add(TEntity entity)
@@ -38,20 +36,14 @@ namespace ETrafficViolationSystem.Data.Repository.Implementation
             await _dbSet.AddAsync(entity);
         }
 
-        public async Task Update(TEntity entity)
+        public Task Update(TEntity entity)
         {
-            await Task.Run(() => _dbSet.Attach(entity));
+            return Task.Run(() => _dbSet.Attach(entity));
         }
 
-        public async Task<bool> Delete(object id)
+        public Task Delete(TEntity entity)
         {
-            TEntity entity = _dbSet.Find(id);
-            if (entity != null)
-            {
-                await Task.Run(() => _dbSet.Remove(entity));
-                return true;
-            }
-            return false;
+            return Task.Run(() => _dbSet.Remove(entity));
         }
     }
 }
