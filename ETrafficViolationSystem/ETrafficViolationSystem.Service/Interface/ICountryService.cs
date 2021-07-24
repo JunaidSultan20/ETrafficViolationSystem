@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ETrafficViolationSystem.Entities.Models;
+using ETrafficViolationSystem.Entities.Dto;
+using ETrafficViolationSystem.Entities.Response;
 
 namespace ETrafficViolationSystem.Service.Interface
 {
     public interface ICountryService
     {
-        Task<IEnumerable<Country>> GetCountryList();
+        Task<BaseResponse<IEnumerable<CountryDto>>> GetCountryList();
 
-        Task<Country> GetById(int id);
+        Task<BaseResponse<CountryDto>> GetById(int id);
     }
 }
