@@ -3,44 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using AutoMapper;
 using ETrafficViolationSystem.Entities.Dto;
 using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Entities.Response;
 using ETrafficViolationSystem.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ETrafficViolationSystem.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CountryController : ControllerBase
     {
         private readonly ICountryService _countryService;
-        private readonly IMapper _mapper;
 
-        public CountryController(ICountryService countryService, IMapper mapper)
+        public CountryController(ICountryService countryService)
         {
             _countryService = countryService;
-            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<BaseResponse<IEnumerable<CountryDto>>>> GetCountryList()
         {
-            IEnumerable<Country> result = await _countryService.GetCountryList();
-            if (result == null)
-                return Ok(new BaseResponse<IEnumerable<CountryDto>>(HttpStatusCode.NotFound, null));
-            return Ok(new BaseResponse<IEnumerable<CountryDto>>(HttpStatusCode.OK, null,
-                _mapper.Map<IEnumerable<CountryDto>>(result), result.Count()));
+            BaseResponse<IEnumerable<CountryDto>> response = await _countryService.GetCountryList();
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return NotFound(response);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<BaseResponse<CountryDto>>> GetById([FromRoute] int id)
         {
-            Country result = await _countryService.GetById(id);
-            if (result == null)
-                return NotFound(new BaseResponse<CountryDto>(HttpStatusCode.NotFound, null));
-            return Ok(new BaseResponse<CountryDto>(HttpStatusCode.OK, null, _mapper.Map<CountryDto>(result), 1));
+            BaseResponse<CountryDto> response = await _countryService.GetById(id);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return NotFound(response);
+            return Ok(response);
         }
     }
 }
