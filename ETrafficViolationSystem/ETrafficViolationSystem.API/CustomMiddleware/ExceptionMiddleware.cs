@@ -2,11 +2,10 @@
 using System.Data.Common;
 using System.Net;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using ETrafficViolationSystem.Entities.Response;
+using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -21,7 +20,7 @@ namespace ETrafficViolationSystem.API.CustomMiddleware
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext httpContext)
+        public async Task InvokeAsync(HttpContext httpContext, IExceptionLogService exceptionLogService)
         {
             try
             {
@@ -29,15 +28,16 @@ namespace ETrafficViolationSystem.API.CustomMiddleware
             }
             catch (Exception exception)
             {
-                await HandleExceptionAsync(httpContext, exception);
+                await HandleExceptionAsync(httpContext, exception, exceptionLogService);
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception, IExceptionLogService exceptionLogService)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             var response = new BaseResponse<object>(HttpStatusCode.InternalServerError, "Internal Server Error", null);
+            exceptionLogService.AddLog(exception, context);
             if (exception is DbUpdateException)
             {
                 response.ApiException =

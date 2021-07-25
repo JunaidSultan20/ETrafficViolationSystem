@@ -33,6 +33,17 @@ namespace ETrafficViolationSystem.Data.EntityConfigurations
                 .HasColumnType("varchar");
 
             modelBuilder
+                .Property(x => x.Method)
+                .IsRequired()
+                .HasColumnType("varchar")
+                .HasMaxLength(50);
+
+            modelBuilder
+                .Property(x => x.Body)
+                .IsRequired()
+                .HasColumnType("varchar");
+
+            modelBuilder
                 .Property(x => x.RemoteIp)
                 .IsRequired()
                 .HasColumnType("varchar")

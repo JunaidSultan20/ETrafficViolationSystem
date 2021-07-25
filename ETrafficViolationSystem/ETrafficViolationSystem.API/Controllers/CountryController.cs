@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ETrafficViolationSystem.Entities.Dto;
-using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Entities.Response;
 using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ETrafficViolationSystem.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CountryController : ControllerBase
@@ -39,6 +37,14 @@ namespace ETrafficViolationSystem.API.Controllers
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return NotFound(response);
             return Ok(response);
+        }
+
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            int a = 110;
+            a = a / 0;
+            return Ok();
         }
     }
 }
