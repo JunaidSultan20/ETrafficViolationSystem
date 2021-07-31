@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using ETrafficViolationSystem.Entities.Dto;
+using ETrafficViolationSystem.Entities.Mappings.Tuples;
 using ETrafficViolationSystem.Entities.Models;
 
 namespace ETrafficViolationSystem.Entities.Mappings
@@ -10,21 +12,21 @@ namespace ETrafficViolationSystem.Entities.Mappings
         {
             CreateMap<Banks, BanksDto>();
 
-            CreateMap<BanksDto, Banks>()
-                .ForMember(destination => destination.Title,
-                    source => source.Condition(x => !string.IsNullOrEmpty(x.Title)))
-                .ForMember(destination => destination.ShortCode,
-                    source => source.Condition(x => !string.IsNullOrEmpty(x.ShortCode)))
-                .ForMember(destination => destination.IsActive,
-                    source => source.Condition(x => x.IsActive.HasValue))
-                .ForMember(destination => destination.CreatedBy,
-                    source => source.Condition(x => x.CreatedBy.HasValue))
-                .ForMember(destination => destination.CreatedDate,
-                    source => source.Condition(x => x.CreatedDate.HasValue))
-                .ForMember(destination => destination.UpdatedBy,
-                    source => source.Condition(x => x.UpdatedBy.HasValue))
-                .ForMember(destination => destination.UpdatedDate,
-                    source => source.Condition(x => x.UpdatedDate.HasValue));
+            CreateMap<BanksInsertDtoTuple, Banks>()
+                .ForMember(destination => destination.Title, source =>
+                    source.MapFrom(x => x.BanksInsertDto.Title))
+
+                .ForMember(destination => destination.ShortCode, source =>
+                    source.MapFrom(x => x.BanksInsertDto.ShortCode))
+
+                .ForMember(destination => destination.IsActive, source =>
+                    source.MapFrom(x => true))
+
+                .ForMember(destination => destination.CreatedBy, source =>
+                    source.MapFrom(x => x.UserId))
+
+                .ForMember(destination => destination.CreatedDate, source =>
+                    source.MapFrom(x => DateTime.Now));
         }
     }
 }
