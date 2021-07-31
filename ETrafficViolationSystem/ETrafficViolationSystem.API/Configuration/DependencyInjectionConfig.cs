@@ -1,13 +1,10 @@
 ﻿using ETrafficViolationSystem.Common.Configurations;
-using ETrafficViolationSystem.Data.Repository.Implementation;
-using ETrafficViolationSystem.Data.Repository.Interface;
 using ETrafficViolationSystem.Data.UnitOfWork.Implementation;
 using ETrafficViolationSystem.Data.UnitOfWork.Interface;
 using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Service.Implementation;
 using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ETrafficViolationSystem.API.Configuration
@@ -18,13 +15,14 @@ namespace ETrafficViolationSystem.API.Configuration
         {
             service.AddScoped<IAccountService, AccountService>();
             service.AddScoped<ICountryService, CountryService>();
-            service.AddScoped<IExceptionLogService, ExceptionLogService>();
+            service.AddTransient<IExceptionLogService, ExceptionLogService>();
+            service.AddScoped<IRoleService, RoleService>();
             service.AddScoped<IStatesService, StatesService>();
-            service.AddScoped<IUnitOfWork, UnitOfWork>();
-            service.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            service.AddTransient<IUnitOfWork, UnitOfWork>();
             service.AddScoped<UserManager<Users>>();
-            service.AddSingleton<JwtConfig>();
-            service.AddSingleton<ResponseMessages>();
+            service.AddScoped<RoleManager<Roles>>();
+            service.AddScoped<JwtConfig>();
+            //service.AddScoped<ResponseMessages>();
         }
     }
 }

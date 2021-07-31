@@ -32,12 +32,12 @@ namespace ETrafficViolationSystem.API.CustomMiddleware
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception, IExceptionLogService exceptionLogService)
+        private async Task<Task> HandleExceptionAsync(HttpContext context, Exception exception, IExceptionLogService exceptionLogService)
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             var response = new BaseResponse<object>(HttpStatusCode.InternalServerError, "Internal Server Error", null);
-            exceptionLogService.AddLog(exception, context);
+            await exceptionLogService.AddLog(exception, context);
             if (exception is DbUpdateException)
             {
                 response.ApiException =

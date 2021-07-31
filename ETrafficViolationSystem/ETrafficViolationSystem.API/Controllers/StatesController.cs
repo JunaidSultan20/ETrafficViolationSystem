@@ -24,6 +24,10 @@ namespace ETrafficViolationSystem.API.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Endpoint For Fetching The List Of States
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<BaseResponse<IEnumerable<StatesDto>>>> GetStatesList()
         {
@@ -33,6 +37,12 @@ namespace ETrafficViolationSystem.API.Controllers
                     _mapper.Map<IEnumerable<StatesDto>>(result), result.Count()));
             return NotFound(new BaseResponse<IEnumerable<StatesDto>>(HttpStatusCode.NotFound, null));
         }
+        
+        /// <summary>
+        /// Endpoint For Fetching The List Of States By Country Id
+        /// </summary>
+        /// <param name="countryId"></param>
+        /// <returns></returns>
 
         [HttpGet("states/{countryId:int}")]
         public async Task<ActionResult<BaseResponse<IEnumerable<StatesDto>>>> GetByCountryId(
@@ -44,6 +54,11 @@ namespace ETrafficViolationSystem.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Endpoint For Fetching The State By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<BaseResponse<StatesDto>>> GetStateById([FromRoute] int id)
         {

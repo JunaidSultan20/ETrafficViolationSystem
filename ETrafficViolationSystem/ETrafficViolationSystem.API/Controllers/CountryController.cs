@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ETrafficViolationSystem.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CountryController : ControllerBase
@@ -21,6 +21,10 @@ namespace ETrafficViolationSystem.API.Controllers
             _countryService = countryService;
         }
 
+        /// <summary>
+        /// Endpoint For Fetching The List Of Countries
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<BaseResponse<IEnumerable<CountryDto>>>> GetCountryList()
         {
@@ -30,6 +34,11 @@ namespace ETrafficViolationSystem.API.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Endpoint For Fetching The Country By Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<BaseResponse<CountryDto>>> GetById([FromRoute] int id)
         {
@@ -37,14 +46,6 @@ namespace ETrafficViolationSystem.API.Controllers
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return NotFound(response);
             return Ok(response);
-        }
-
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            int a = 110;
-            a = a / 0;
-            return Ok();
         }
     }
 }
