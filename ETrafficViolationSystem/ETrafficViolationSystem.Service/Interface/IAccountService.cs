@@ -6,7 +6,7 @@ namespace ETrafficViolationSystem.Service.Interface
 {
     public interface IAccountService
     {
-        Task<LoginDto> Login(AuthenticationDto authenticationDto);
+        Task<BaseResponse<LoginDto>> Login(AuthenticationDto authenticationDto);
 
         Task<BaseResponse<UsersDto>> Register(RegistrationDto registrationDto);
 

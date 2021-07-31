@@ -14,6 +14,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace ETrafficViolationSystem.Service.Implementation
 {
@@ -24,15 +25,15 @@ namespace ETrafficViolationSystem.Service.Implementation
         private readonly JwtConfig _jwtConfig;
         private readonly IMapper _mapper;
 
-        public AccountService(UserManager<Users> userManager, RoleManager<Roles> roleManager, JwtConfig jwtConfig, IMapper mapper)
+        public AccountService(UserManager<Users> userManager, RoleManager<Roles> roleManager, IOptions<JwtConfig> options, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _jwtConfig = jwtConfig;
+            _jwtConfig = options.Value;
             _mapper = mapper;
         }
 
-        public async Task<LoginDto> Login(AuthenticationDto authenticationDto)
+        public async Task<BaseResponse<LoginDto>> Login(AuthenticationDto authenticationDto)
         {
             Users user = await _userManager.FindByEmailAsync(authenticationDto.Email);
             if (user != null)
@@ -70,13 +71,13 @@ namespace ETrafficViolationSystem.Service.Implementation
                         await _userManager.RemoveAuthenticationTokenAsync(user, "ETrafficViolationSystem.API", "RefreshToken");
                         refreshToken = await _userManager
                             .GenerateUserTokenAsync(user, "ETrafficViolationSystem.API", "RefreshToken");
-                        await _userManager.SetAuthenticationTokenAsync(user, "JwtTutorial", "RefreshToken",
+                        await _userManager.SetAuthenticationTokenAsync(user, "ETrafficViolationSystem.API", "RefreshToken",
                             refreshToken);
                     }
                     else
                     {
-                        refreshToken = await _userManager.GenerateUserTokenAsync(user, "JwtTutorial", "RefreshToken");
-                        await _userManager.SetAuthenticationTokenAsync(user, "JwtTutorial", "RefreshToken", refreshToken);
+                        refreshToken = await _userManager.GenerateUserTokenAsync(user, "ETrafficViolationSystem.API", "RefreshToken");
+                        await _userManager.SetAuthenticationTokenAsync(user, "ETrafficViolationSystem.API", "RefreshToken", refreshToken);
                     }
 
                     LoginDto loginDto = new LoginDto()
@@ -86,10 +87,10 @@ namespace ETrafficViolationSystem.Service.Implementation
                         RefreshToken = refreshToken,
                         RefreshTokenExpiration = DateTime.Now.AddDays(1)
                     };
-                    return loginDto;
+                    return new BaseResponse<LoginDto>(HttpStatusCode.OK, "Access Token Generated.", loginDto);
                 }
             }
-            return null;
+            return new BaseResponse<LoginDto>(HttpStatusCode.Unauthorized, "Unauthorized Attempt.");
         }
 
         public async Task<BaseResponse<UsersDto>> Register(RegistrationDto registrationDto)
