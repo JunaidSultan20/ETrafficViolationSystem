@@ -42,13 +42,13 @@ namespace ETrafficViolationSystem.Data.UnitOfWork.Implementation
                 TransactionScope transactionScope;
                 using (transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    result = await _context.SaveChangesAsync().ConfigureAwait(false);
+                    result = await _context.SaveChangesAsync();
                     transactionScope.Complete();
                 }
                 transactionScope.Dispose();
                 return result;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 Rollback();
                 throw;

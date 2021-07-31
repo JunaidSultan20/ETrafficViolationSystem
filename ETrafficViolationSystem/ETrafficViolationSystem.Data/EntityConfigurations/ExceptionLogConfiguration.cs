@@ -20,17 +20,17 @@ namespace ETrafficViolationSystem.Data.EntityConfigurations
             modelBuilder
                 .Property(x => x.ExceptionMessage)
                 .IsRequired()
-                .HasColumnType("varchar");
+                .HasColumnType("varchar(max)");
 
             modelBuilder
                 .Property(x => x.InnerException)
-                .IsRequired()
-                .HasColumnType("varchar");
+                .HasColumnType("varchar(max)");
 
             modelBuilder
                 .Property(x => x.Url)
                 .IsRequired()
-                .HasColumnType("varchar");
+                .HasColumnType("varchar")
+                .HasMaxLength(255);
 
             modelBuilder
                 .Property(x => x.Method)
@@ -41,13 +41,13 @@ namespace ETrafficViolationSystem.Data.EntityConfigurations
             modelBuilder
                 .Property(x => x.Body)
                 .IsRequired()
-                .HasColumnType("varchar");
+                .HasColumnType("varchar(max)");
 
             modelBuilder
                 .Property(x => x.RemoteIp)
                 .IsRequired()
                 .HasColumnType("varchar")
-                .HasMaxLength(255);
+                .HasMaxLength(100);
 
             modelBuilder
                 .Property(x => x.IsActive)
