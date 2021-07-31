@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace ETrafficViolationSystem.Entities.Dto
 {
-    // Base Data Transfer Object
+    /// <summary>
+    /// Base DTO
+    /// </summary>
     public abstract class BaseDto
     {
         public bool? IsActive { get; set; }
@@ -16,23 +19,33 @@ namespace ETrafficViolationSystem.Entities.Dto
         public DateTime? UpdatedDate { get; set; }
     }
 
-    // Base Insert Data Transfer Object
+    /// <summary>
+    /// Base Insert Dto
+    /// </summary>
     public abstract class BaseInsertDto
     {
+        [JsonIgnore]
         public bool IsActive { get; set; } = true;
 
+        [JsonIgnore]
         public int CreatedBy { get; set; }
 
+        [JsonIgnore]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 
-    // Base Update Data Transfer Object
+    /// <summary>
+    /// Base Update Dto
+    /// </summary>
     public abstract class BaseUpdateDto
     {
+        [JsonIgnore]
         public bool? IsActive { get; set; }
 
+        [JsonIgnore]
         public int? UpdatedBy { get; set; }
 
+        [JsonIgnore]
         public DateTime? UpdatedDate { get; set; } = DateTime.Now;
     }
 }
