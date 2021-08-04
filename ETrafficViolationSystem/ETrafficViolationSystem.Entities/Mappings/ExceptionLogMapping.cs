@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Security.Claims;
 using AutoMapper;
 using ETrafficViolationSystem.Entities.Models;

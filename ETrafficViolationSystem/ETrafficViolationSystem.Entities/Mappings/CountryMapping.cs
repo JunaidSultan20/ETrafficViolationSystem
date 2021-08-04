@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using ETrafficViolationSystem.Entities.Dto;
 using ETrafficViolationSystem.Entities.Models;
 

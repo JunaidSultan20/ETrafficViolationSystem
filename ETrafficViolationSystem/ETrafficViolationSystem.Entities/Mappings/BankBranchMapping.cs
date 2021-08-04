@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ETrafficViolationSystem.Entities.Dto;
+using ETrafficViolationSystem.Entities.Mappings.InsertTuples;
 using ETrafficViolationSystem.Entities.Models;
 
 namespace ETrafficViolationSystem.Entities.Mappings
@@ -10,25 +11,34 @@ namespace ETrafficViolationSystem.Entities.Mappings
         {
             CreateMap<BankBranch, BankBranchDto>();
 
-            CreateMap<BankBranchDto, BankBranch>()
+            CreateMap<BankBranchInsertDtoTuple, BankBranch>()
                 .ForMember(destination => destination.BranchCode,
-                    source => source.Condition(x => x.BranchCode.HasValue))
+                    source => 
+                        source.MapFrom(x => x.BankBranchDto.BranchCode))
+                
                 .ForMember(destination => destination.BranchTitle,
-                    source => source.Condition(x => !string.IsNullOrEmpty(x.BranchTitle)))
+                    source => 
+                        source.MapFrom(x => x.BankBranchDto.BranchTitle))
+                
                 .ForMember(destination => destination.BankId,
-                    source => source.Condition(x => x.BankId.HasValue))
+                    source => 
+                        source.MapFrom(x => x.BankBranchDto.BankId))
+                
                 .ForMember(destination => destination.CityId,
-                    source => source.Condition(x => x.CityId.HasValue))
+                    source => 
+                        source.MapFrom(x => x.BankBranchDto.CityId))
+                
                 .ForMember(destination => destination.IsActive,
-                    source => source.Condition(x => x.IsActive.HasValue))
+                    source => 
+                        source.MapFrom(x => x.BankBranchDto.IsActive))
+                
                 .ForMember(destination => destination.CreatedBy,
-                    source => source.Condition(x => x.CreatedBy.HasValue))
+                    source => 
+                        source.MapFrom(x => x.BankBranchDto.CreatedBy))
+                
                 .ForMember(destination => destination.CreatedDate,
-                    source => source.Condition(x => x.CreatedDate.HasValue))
-                .ForMember(destination => destination.UpdatedBy,
-                    source => source.Condition(x => x.UpdatedBy.HasValue))
-                .ForMember(destination => destination.UpdatedDate,
-                    source => source.Condition(x => x.UpdatedDate.HasValue));
+                    source => 
+                        source.MapFrom(x => x.BankBranchDto.CreatedDate));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using ETrafficViolationSystem.Entities.Dto;
 
-namespace ETrafficViolationSystem.Entities.Mappings.Tuples
+namespace ETrafficViolationSystem.Entities.Mappings.InsertTuples
 {
     public class RoleInsertDtoTuple : Tuple<RoleInsertDto, int>
     {

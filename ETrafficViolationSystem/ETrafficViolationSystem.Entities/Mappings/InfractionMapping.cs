@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using ETrafficViolationSystem.Entities.Dto;
-using ETrafficViolationSystem.Entities.Mappings.Tuples;
+using ETrafficViolationSystem.Entities.Mappings.InsertTuples;
 using ETrafficViolationSystem.Entities.Models;
 
 namespace ETrafficViolationSystem.Entities.Mappings
