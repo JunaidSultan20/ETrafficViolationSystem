@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ETrafficViolationSystem.API.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Users,Admin,Officer")]
+    //[AuthorizationFilter(RoleConstants.User)]
     [Route("api/[controller]")]
     [ApiController]
     public class CountryController : ControllerBase

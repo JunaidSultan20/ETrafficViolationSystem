@@ -54,7 +54,7 @@ namespace ETrafficViolationSystem.Entities.Response
                 case HttpStatusCode.Unauthorized:
                     StatusCode = HttpStatusCode.Unauthorized;
                     Message = message ?? "Invalid authentication request.";
-                    IsSuccessful = true;
+                    IsSuccessful = false;
                     break;
                 case HttpStatusCode.NotFound:
                     StatusCode = HttpStatusCode.NotFound;
@@ -84,6 +84,11 @@ namespace ETrafficViolationSystem.Entities.Response
                 case HttpStatusCode.NotAcceptable:
                     StatusCode = HttpStatusCode.NotAcceptable;
                     Message = message ?? "Request Body Not Acceptable.";
+                    IsSuccessful = false;
+                    break;
+                case HttpStatusCode.Forbidden:
+                    StatusCode = HttpStatusCode.Forbidden;
+                    Message = message ?? "Unable To Authorize User.";
                     IsSuccessful = false;
                     break;
                 default:
