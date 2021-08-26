@@ -56,8 +56,7 @@ namespace ETrafficViolationSystem.Data.EntityConfigurations
             modelBuilder
                 .Property(x => x.UpdatedDate)
                 .IsRequired(false)
-                .HasColumnType("datetime")
-                .HasDefaultValueSql("GetDate()");
+                .HasColumnType("datetime");
 
             modelBuilder
                 .ToTable("Infractions");

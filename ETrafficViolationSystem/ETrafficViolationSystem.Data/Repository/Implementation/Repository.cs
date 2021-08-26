@@ -28,7 +28,7 @@ namespace ETrafficViolationSystem.Data.Repository.Implementation
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await _dbSet.FindAsync(expression);
+            return await _dbSet.FirstOrDefaultAsync(expression);
         }
 
         public async Task Add(TEntity entity)
