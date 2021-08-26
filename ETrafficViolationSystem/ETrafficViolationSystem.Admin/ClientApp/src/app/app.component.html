@@ -1,0 +1,19 @@
+<app-header *ngIf="helper.isAuthenticated"></app-header>
+<app-menu *ngIf="helper.isAuthenticated"></app-menu>
+<!-- BEGIN: Content-->
+<div [ngClass]="{'app-content content': helper.isAuthenticated}">
+  <div class="content-overlay" *ngIf="helper.isAuthenticated"></div>
+  <div class="header-navbar-shadow" *ngIf="helper.isAuthenticated"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+<!-- END: Content-->
+<app-footer *ngIf="helper.isAuthenticated"></app-footer>
