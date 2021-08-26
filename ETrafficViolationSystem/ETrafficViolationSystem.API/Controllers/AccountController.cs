@@ -62,5 +62,20 @@ namespace ETrafficViolationSystem.API.Controllers
                 return BadRequest(response);
             return Ok(response);
         }
+
+        /// <summary>
+        /// Endpoint For Logging Out User
+        /// </summary>
+        /// <param name="logoutRequest"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<ActionResult<BaseResponse<object>>> Logout([FromBody] LogoutRequest logoutRequest)
+        {
+            BaseResponse<object> response = await _accountService.Logout(logoutRequest.Token);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+            return Ok(response);
+        }
     }
 }

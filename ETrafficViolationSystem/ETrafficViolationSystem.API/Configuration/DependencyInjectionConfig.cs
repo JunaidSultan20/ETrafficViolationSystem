@@ -16,6 +16,7 @@ namespace ETrafficViolationSystem.API.Configuration
             service.AddScoped<IAccountService, AccountService>();
             service.AddScoped<ICountryService, CountryService>();
             service.AddTransient<IExceptionLogService, ExceptionLogService>();
+            service.AddScoped<IInfractionsService, InfractionsService>();
             service.AddScoped<IRoleService, RoleService>();
             service.AddScoped<IStatesService, StatesService>();
             service.AddTransient<IUnitOfWork, UnitOfWork>();

@@ -18,6 +18,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Text;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.ApplicationInsights;
 
 namespace ETrafficViolationSystem.API
 {
@@ -33,6 +35,19 @@ namespace ETrafficViolationSystem.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+
+            services.AddLogging(options =>
+            {
+                options.AddConsole();
+                options.SetMinimumLevel(LogLevel.Information);
+                options.AddApplicationInsights(Configuration.GetValue<string>("ApplicationInsight:InstrumentationKey"));
+                options.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Trace);
+            });
+
+            services.AddApplicationInsightsTelemetry(
+                Configuration.GetValue<string>("ApplicationInsight:InstrumentationKey"));
+            
             // CORS Policy
             services.AddCors(options =>
             {
@@ -56,8 +71,6 @@ namespace ETrafficViolationSystem.API
                 configuration.RegisterValidatorsFromAssemblyContaining<Startup>();
                 configuration.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
             }).AddXmlDataContractSerializerFormatters();
-
-            services.AddHttpContextAccessor();
 
             // Registering AutoMapper Mappings
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

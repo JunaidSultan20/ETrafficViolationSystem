@@ -19,7 +19,7 @@ namespace ETrafficViolationSystem.API.Filters
                     "One or more validation errors occurred.", null)
                 {
                     IsSuccessful = false,
-                    ApiException = new ApiException("Model State validation failed.", null, null, null,
+                    ApiException = new ApiException(null, "Model State validation failed.", null, null, null,
                         context.ModelState.Keys.SelectMany(key => context.ModelState[key].Errors.Select(x =>
                             new ValidationError
                                 (key, x.ErrorMessage))).AsEnumerable())

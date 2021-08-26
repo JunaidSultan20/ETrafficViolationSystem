@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using ETrafficViolationSystem.API.Filters;
 using ETrafficViolationSystem.Entities.Dto;
 using ETrafficViolationSystem.Entities.Response;
 using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace ETrafficViolationSystem.API.Controllers
 {
@@ -15,10 +19,13 @@ namespace ETrafficViolationSystem.API.Controllers
     public class CountryController : ControllerBase
     {
         private readonly ICountryService _countryService;
+        private readonly ILogger<CountryController> _logger;
+        private readonly HttpContext _httpContext;
 
-        public CountryController(ICountryService countryService)
+        public CountryController(ICountryService countryService, ILogger<CountryController> logger)
         {
             _countryService = countryService;
+            _logger = logger;
         }
 
         /// <summary>

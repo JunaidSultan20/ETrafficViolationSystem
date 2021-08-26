@@ -7,9 +7,6 @@ namespace ETrafficViolationSystem.API.Validators
     {
         public BaseRequestValidator()
         {
-            RuleFor(x => x.UserId)
-                .GreaterThan(0).WithMessage("User Id Must Be Greater Than 0.");
-
             RuleFor(x => x.StartPage)
                 .GreaterThan(0).WithMessage("Start Page Must Be Greater Than 0.");
 

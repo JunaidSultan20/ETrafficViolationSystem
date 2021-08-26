@@ -23,8 +23,8 @@ namespace ETrafficViolationSystem.API.Extensions
                     {
                         //logger.LogError($"Something went wrong: {contextFeature.Error}");
                         await context.Response.WriteAsync(
-                            new ApiException("Internal Server Error from the custom middleware.", null, null, null)
-                                .ToString());
+                            new ApiException(null, "Internal Server Error from the custom middleware.", null, null, null)
+                                .ToString() ?? string.Empty);
                     }
                 });
             });

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Data.Common;
 using System.Net;
-using System.Reflection;
 using System.Threading.Tasks;
 using ETrafficViolationSystem.Entities.Response;
 using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace ETrafficViolationSystem.API.CustomMiddleware
@@ -37,66 +34,9 @@ namespace ETrafficViolationSystem.API.CustomMiddleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             var response = new BaseResponse<object>(HttpStatusCode.InternalServerError, "Internal Server Error", null);
-            await exceptionLogService.AddLog(exception, context);
-            if (exception is DbUpdateException)
-            {
-                response.ApiException =
-                    new ApiException("Database Update Exception", exception.Message, exception.InnerException?.Message,
-                        exception.HelpLink);
-            }
-
-            if (exception is DbException)
-            {
-                response.ApiException = new ApiException("Db Exception", exception.Message,
-                    exception.InnerException?.Message, exception.HelpLink);
-            }
-
-            if (exception is DivideByZeroException)
-            {
-                response.ApiException =
-                    new ApiException("Divide by zero exception", exception.Message, exception.InnerException?.Message,
-                        exception.HelpLink);
-            }
-
-            if (exception is ArgumentException)
-            {
-                response.ApiException =
-                    new ApiException("Argument exception", exception.Message, exception.InnerException?.Message,
-                        exception.HelpLink);
-            }
-
-            if (exception is ArgumentNullException)
-            {
-                response.ApiException =
-                    new ApiException("Argument can't be null", exception.Message, exception.InnerException?.Message,
-                        exception.HelpLink);
-            }
-
-            if (exception is NotImplementedException)
-            {
-                response.ApiException =
-                    new ApiException("This method is not implemented yet.", exception.Message,
-                        exception.InnerException?.Message, exception.HelpLink);
-            }
-
-            if (exception is TimeoutException)
-            {
-                response.ApiException =
-                    new ApiException("Request timeout occured.", exception.Message, exception.InnerException?.Message,
-                        exception.HelpLink);
-            }
-
-            if (exception is AmbiguousMatchException)
-            {
-                response.ApiException =
-                    new ApiException("Request is matching multiple endpoints.", exception.Message,
-                        exception.InnerException?.Message, exception.HelpLink);
-            }
-            else
-            {
-                response.ApiException = new ApiException("Internal server error occurred.", exception.Message,
-                    exception.InnerException?.Message, exception.HelpLink);
-            }
+            int logId = await exceptionLogService.AddLog(exception, context);
+            response.ApiException = new ApiException(logId, "Internal Server Error Occurred.", exception.Message,
+                exception.InnerException?.Message, exception.HelpLink);
             return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
         }
     }

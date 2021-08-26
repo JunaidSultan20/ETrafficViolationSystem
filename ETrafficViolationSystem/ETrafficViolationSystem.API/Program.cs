@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.ApplicationInsights;
 
 namespace ETrafficViolationSystem.API
 {
@@ -18,6 +20,11 @@ namespace ETrafficViolationSystem.API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddApplicationInsights("9eec04b2-0c09-4ad2-931c-ff14ded1a8b1");
+                    logging.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Trace);
                 })
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {

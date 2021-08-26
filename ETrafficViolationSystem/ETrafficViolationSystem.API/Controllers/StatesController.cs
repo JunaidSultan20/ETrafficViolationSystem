@@ -16,11 +16,13 @@ namespace ETrafficViolationSystem.API.Controllers
     public class StatesController : ControllerBase
     {
         private readonly IStatesService _statesService;
+        private readonly ICityService _cityService;
         private readonly IMapper _mapper;
 
-        public StatesController(IStatesService statesService, IMapper mapper)
+        public StatesController(IStatesService statesService, ICityService cityService, IMapper mapper)
         {
             _statesService = statesService;
+            _cityService = cityService;
             _mapper = mapper;
         }
 
@@ -32,10 +34,10 @@ namespace ETrafficViolationSystem.API.Controllers
         public async Task<ActionResult<BaseResponse<IEnumerable<StatesDto>>>> GetStatesList()
         {
             IEnumerable<States> result = await _statesService.GetStatesList();
-            if (result != null && result.Any())
-                return Ok(new BaseResponse<IEnumerable<StatesDto>>(HttpStatusCode.OK, null,
-                    _mapper.Map<IEnumerable<StatesDto>>(result), result.Count()));
-            return NotFound(new BaseResponse<IEnumerable<StatesDto>>(HttpStatusCode.NotFound, null));
+            if (result == null)
+                return NotFound(new BaseResponse<IEnumerable<StatesDto>>(HttpStatusCode.NotFound, null));
+            return Ok(new BaseResponse<IEnumerable<StatesDto>>(HttpStatusCode.OK, null,
+                _mapper.Map<IEnumerable<StatesDto>>(result), result.Count()));
         }
         
         /// <summary>
@@ -63,6 +65,20 @@ namespace ETrafficViolationSystem.API.Controllers
         public async Task<ActionResult<BaseResponse<StatesDto>>> GetStateById([FromRoute] int id)
         {
             BaseResponse<StatesDto> response = await _statesService.GetById(id);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return NotFound(response);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Endpoint For Fetching The City List By State Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id:int}/cities")]
+        public async Task<ActionResult<BaseResponse<IEnumerable<CityDto>>>> GetCitiesByStateId([FromRoute] int id)
+        {
+            BaseResponse<IEnumerable<CityDto>> response = await _cityService.GetByStateId(id);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return NotFound(response);
             return Ok(response);
