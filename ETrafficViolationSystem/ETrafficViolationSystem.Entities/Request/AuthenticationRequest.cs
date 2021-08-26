@@ -11,4 +11,9 @@ namespace ETrafficViolationSystem.Entities.Request
     {
         public RegistrationDto RegistrationDto { get; set; }
     }
+
+    public class LogoutRequest
+    {
+        public string Token { get; set; }
+    }
 }

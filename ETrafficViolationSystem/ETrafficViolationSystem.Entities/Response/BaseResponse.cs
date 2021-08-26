@@ -28,52 +28,52 @@ namespace ETrafficViolationSystem.Entities.Response
             {
                 case HttpStatusCode.OK:
                     StatusCode = HttpStatusCode.OK;
-                    Message = message ?? "Records retrieved successfully.";
+                    Message = message ?? "Records Retrieved Successfully.";
                     IsSuccessful = true;
                     Result = result;
                     TotalRecords = totalRecords;
                     break;
                 case HttpStatusCode.Created:
                     StatusCode = HttpStatusCode.Created;
-                    Message = message ?? "Record added successfully.";
+                    Message = message ?? "Record Added Successfully.";
                     IsSuccessful = true;
                     Result = result;
                     TotalRecords = totalRecords;
                     break;
                 case HttpStatusCode.NoContent:
                     StatusCode = HttpStatusCode.NoContent;
-                    Message = message ?? "Resource deleted successfully.";
+                    Message = message ?? "Resource Deleted Successfully.";
                     IsSuccessful = true;
                     break;
                 case HttpStatusCode.BadRequest:
                     StatusCode = HttpStatusCode.BadRequest;
-                    Message = message ?? "Invalid request.";
+                    Message = message ?? "Invalid Resource Requested.";
                     IsSuccessful = false;
                     Result = result;
                     break;
                 case HttpStatusCode.Unauthorized:
                     StatusCode = HttpStatusCode.Unauthorized;
-                    Message = message ?? "Invalid authentication request.";
+                    Message = message ?? "Invalid Authentication Request.";
                     IsSuccessful = true;
                     break;
                 case HttpStatusCode.NotFound:
                     StatusCode = HttpStatusCode.NotFound;
-                    Message = message ?? "No records found.";
+                    Message = message ?? "No Records Found.";
                     IsSuccessful = false;
                     break;
                 case HttpStatusCode.MethodNotAllowed:
                     StatusCode = HttpStatusCode.MethodNotAllowed;
-                    Message = message ?? "Method not allowed.";
+                    Message = message ?? "Method Not Allowed.";
                     IsSuccessful = false;
                     break;
                 case HttpStatusCode.Conflict:
                     StatusCode = HttpStatusCode.Conflict;
-                    Message = message ?? "Request conflict.";
+                    Message = message ?? "Request Conflict.";
                     IsSuccessful = false;
                     break;
                 case HttpStatusCode.UnsupportedMediaType:
                     StatusCode = HttpStatusCode.UnsupportedMediaType;
-                    Message = message ?? "Media type not supported.";
+                    Message = message ?? "Media Type Not Supported.";
                     IsSuccessful = false;
                     break;
                 case HttpStatusCode.InternalServerError:

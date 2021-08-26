@@ -4,6 +4,8 @@ namespace ETrafficViolationSystem.Entities.Response
 {
     public class ApiException
     {
+        public int? ExceptionId { get; set; }
+
         public string ExceptionMessage { get; set; }
 
         public string Details { get; set; }
@@ -14,8 +16,9 @@ namespace ETrafficViolationSystem.Entities.Response
 
         public IEnumerable<ValidationError> ValidationErrors { get; set; }
 
-        public ApiException(string message, string details, string innerException, string link)
+        public ApiException(int? exceptionId, string message, string details, string innerException, string link)
         {
+            ExceptionId = exceptionId;
             ExceptionMessage = message;
             Details = details;
             InnerException = innerException;
@@ -23,8 +26,8 @@ namespace ETrafficViolationSystem.Entities.Response
                 ReferenceDocumentLink = link;
         }
 
-        public ApiException(string message, string details, string innerException, string link, IEnumerable<ValidationError> validationErrors)
-            : this(message, details, innerException, link)
+        public ApiException(int? exceptionId, string message, string details, string innerException, string link, IEnumerable<ValidationError> validationErrors)
+            : this(exceptionId, message, details, innerException, link)
         {
             ValidationErrors = validationErrors;
         }
