@@ -9,10 +9,12 @@ namespace ETrafficViolationSystem.Service.Interface
     {
         Task<BaseResponse<IEnumerable<CarModelDto>>> GetModelsList();
 
-        Task<BaseResponse<CarModelDto>> GetById(string id);
+        Task<BaseResponse<IEnumerable<CarModelDto>>> GetByTitle(string title);
 
         Task<BaseResponse<IEnumerable<CarModelDto>>> GetByYear(int year);
 
         Task<BaseResponse<IEnumerable<CarModelDto>>> GetByMakeId(short id);
+
+        Task<BaseResponse<CarModelDto>> GetById(string id);
     }
 }

@@ -6,6 +6,6 @@ namespace ETrafficViolationSystem.Service.Interface
 {
     public interface IExceptionLogService
     {
-        Task AddLog(Exception exception, HttpContext httpContext);
+        Task<int> AddLog(Exception exception, HttpContext httpContext);
     }
 }

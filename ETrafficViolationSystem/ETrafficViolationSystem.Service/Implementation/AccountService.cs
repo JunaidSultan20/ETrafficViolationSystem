@@ -80,7 +80,7 @@ namespace ETrafficViolationSystem.Service.Implementation
                         await _userManager.SetAuthenticationTokenAsync(user, "ETrafficViolationSystem.API", "RefreshToken", refreshToken);
                     }
 
-                    LoginDto loginDto = new LoginDto()
+                    LoginDto loginDto = new LoginDto
                     {
                         Token = new JwtSecurityTokenHandler().WriteToken(token),
                         Expiration = token.ValidTo,
@@ -152,6 +152,19 @@ namespace ETrafficViolationSystem.Service.Implementation
                 Token = newAccessToken,
                 RefreshToken = newRefreshToken
             });
+        }
+
+        public async Task<BaseResponse<object>> Logout(string token)
+        {
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityToken jwtToken = jwtSecurityTokenHandler.ReadJwtToken(token);
+            Users user = await _userManager.FindByIdAsync(jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+            IdentityResult result =
+                await _userManager.RemoveAuthenticationTokenAsync(user, "ETrafficViolationSystem.API", "RefreshToken");
+            if (!result.Succeeded)
+                return new BaseResponse<object>(HttpStatusCode.BadRequest, "Unable To Logout User.")
+                    { Errors = result.Errors.Select(x => x.Description).ToList() };
+            return new BaseResponse<object>(HttpStatusCode.OK, "User Logged Out Successfully.");
         }
 
         private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)

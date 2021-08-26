@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ETrafficViolationSystem.Entities.Dto;
+using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Entities.Response;
 
 namespace ETrafficViolationSystem.Service.Interface
@@ -10,5 +11,15 @@ namespace ETrafficViolationSystem.Service.Interface
         Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList();
 
         Task<BaseResponse<InfractionsDto>> GetInfractionById(int id);
+
+        Task<BaseResponse<IEnumerable<InfractionsDto>>> GetByPenalty(int penalty);
+
+        Task<BaseResponse<IEnumerable<InfractionsDto>>> GetByPoints(int points);
+
+        Task<BaseResponse<InfractionsDto>> Add(InfractionsInsertDto infractionsInsertDto);
+
+        Task<BaseResponse<InfractionsDto>> Update(InfractionsUpdateDto infractionsUpdateDto, int id);
+
+        Task<BaseResponse<object>> Delete(int id);
     }
 }

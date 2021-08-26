@@ -11,5 +11,7 @@ namespace ETrafficViolationSystem.Service.Interface
         Task<BaseResponse<UsersDto>> Register(RegistrationDto registrationDto);
 
         Task<BaseResponse<RefreshTokenDto>> RefreshToken(RefreshTokenDto refreshTokenDto);
+
+        Task<BaseResponse<object>> Logout(string token);
     }
 }

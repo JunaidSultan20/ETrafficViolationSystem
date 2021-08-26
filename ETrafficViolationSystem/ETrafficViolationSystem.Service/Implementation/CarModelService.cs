@@ -31,12 +31,13 @@ namespace ETrafficViolationSystem.Service.Implementation
                 _mapper.Map<IEnumerable<CarModelDto>>(result), result.Count());
         }
 
-        public async Task<BaseResponse<CarModelDto>> GetById(string id)
+        public async Task<BaseResponse<IEnumerable<CarModelDto>>> GetByTitle(string title)
         {
-            CarModel result = await _unitOfWork.Repository<CarModel>().FindAsync(x => x.ModelId == id);
-            if (result == null)
-                return new BaseResponse<CarModelDto>(HttpStatusCode.NotFound, null);
-            return new BaseResponse<CarModelDto>(HttpStatusCode.OK, null, _mapper.Map<CarModelDto>(result));
+            IEnumerable<CarModel> result = await _unitOfWork.Repository<CarModel>().Get(x => x.ModelTitle == title);
+            if (result == null && !result.Any())
+                return new BaseResponse<IEnumerable<CarModelDto>>(HttpStatusCode.NotFound, null);
+            return new BaseResponse<IEnumerable<CarModelDto>>(HttpStatusCode.OK, null,
+                _mapper.Map<IEnumerable<CarModelDto>>(result), result.Count());
         }
 
         public async Task<BaseResponse<IEnumerable<CarModelDto>>> GetByYear(int year)
@@ -56,6 +57,14 @@ namespace ETrafficViolationSystem.Service.Implementation
                 return new BaseResponse<IEnumerable<CarModelDto>>(HttpStatusCode.NotFound, null);
             return new BaseResponse<IEnumerable<CarModelDto>>(HttpStatusCode.OK, null,
                 _mapper.Map<IEnumerable<CarModelDto>>(result), result.Count());
+        }
+
+        public async Task<BaseResponse<CarModelDto>> GetById(string id)
+        {
+            CarModel result = await _unitOfWork.Repository<CarModel>().FindAsync(x => x.ModelId == id);
+            if (result == null)
+                return new BaseResponse<CarModelDto>(HttpStatusCode.NotFound, null);
+            return new BaseResponse<CarModelDto>(HttpStatusCode.OK, null, _mapper.Map<CarModelDto>(result));
         }
     }
 }
