@@ -1,7 +1,6 @@
 ﻿using System;
 using AutoMapper;
 using ETrafficViolationSystem.Entities.Dto;
-using ETrafficViolationSystem.Entities.Mappings.InsertTuples;
 using ETrafficViolationSystem.Entities.Models;
 
 namespace ETrafficViolationSystem.Entities.Mappings
@@ -14,21 +13,21 @@ namespace ETrafficViolationSystem.Entities.Mappings
             CreateMap<Infractions, InfractionsDto>();
 
             //Mapping For InfractionsInsertDto -> Infractions
-            CreateMap<InfractionInsertDtoTuple, Infractions>()
+            CreateMap<Tuple<InfractionsInsertDto, int>, Infractions>()
                 .ForMember(destination => destination.Description, source => 
-                    source.MapFrom(x => x.InfractionsInsertDto.Description))
+                    source.MapFrom(x => x.Item1.Description))
                 
                 .ForMember(destination => destination.Penalty, source => 
-                    source.MapFrom(x => x.InfractionsInsertDto.Penalty))
+                    source.MapFrom(x => x.Item1.Penalty))
                 
                 .ForMember(destination => destination.Points, source => 
-                    source.MapFrom(x => x.InfractionsInsertDto.Points))
+                    source.MapFrom(x => x.Item1.Points))
                 
                 .ForMember(destination => destination.IsActive, source => 
                     source.MapFrom(x => true))
                 
                 .ForMember(destination => destination.CreatedBy, source => 
-                    source.MapFrom(x => x.UserId))
+                    source.MapFrom(x => x.Item2))
                 
                 .ForMember(destination => destination.CreatedDate, source => 
                     source.MapFrom(x => DateTime.Now));

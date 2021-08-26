@@ -10,27 +10,27 @@ namespace ETrafficViolationSystem.Entities.Mappings
     {
         public ExceptionLogMapping()
         {
-            CreateMap<Tuple<HttpContext, Exception>, ExceptionLog>()
+            CreateMap<Tuple<Exception, HttpContext>, ExceptionLog>()
                 .ForMember(destination => destination.ExceptionMessage, source
-                    => source.MapFrom(x => x.Item2.Message))
+                    => source.MapFrom(x => x.Item1.Message))
 
                 .ForMember(destination => destination.InnerException, source
-                    => source.MapFrom(x => x.Item2.InnerException.Message))
+                    => source.MapFrom(x => x.Item1.InnerException.Message))
 
                 .ForMember(destination => destination.Url, source
-                    => source.MapFrom(x => x.Item1.Request.Path.ToString()))
+                    => source.MapFrom(x => x.Item2.Request.Path.ToString()))
 
                 .ForMember(destination => destination.Method, source
-                    => source.MapFrom(x => x.Item1.Request.Method))
+                    => source.MapFrom(x => x.Item2.Request.Method))
 
                 .ForMember(destination => destination.Body, source
-                    => source.MapFrom(x => x.Item1.Request.Body.ToString()))
+                    => source.MapFrom(x => x.Item2.Request.Body.ToString()))
 
                 .ForMember(destination => destination.RemoteIp, source
-                    => source.MapFrom(x => x.Item1.Connection.RemoteIpAddress.ToString()))
+                    => source.MapFrom(x => x.Item2.Connection.RemoteIpAddress.ToString()))
 
                 .ForMember(destination => destination.CreatedBy, source
-                    => source.MapFrom(x => x.Item1.User.FindFirstValue(ClaimTypes.NameIdentifier)));
+                    => source.MapFrom(x => x.Item2.User.FindFirstValue(ClaimTypes.NameIdentifier)));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using AutoMapper;
-using ETrafficViolationSystem.Entities.Mappings.InsertTuples;
+using ETrafficViolationSystem.Entities.Dto;
 using ETrafficViolationSystem.Entities.Models;
 
 namespace ETrafficViolationSystem.Entities.Mappings
@@ -9,18 +9,18 @@ namespace ETrafficViolationSystem.Entities.Mappings
     {
         public RoleMappings()
         {
-            CreateMap<RoleInsertDtoTuple, Roles>()
+            CreateMap<Tuple<RoleInsertDto, int>, Roles>()
                 .ForMember(destination => destination.Name, source =>
-                    source.Condition(x => !string.IsNullOrEmpty(x.RoleInsertDto.Name)))
+                    source.Condition(x => !string.IsNullOrEmpty(x.Item1.Name)))
 
                 .ForMember(destination => destination.NormalizedName, source =>
-                    source.MapFrom(x => x.RoleInsertDto.Name.ToUpper()))
+                    source.MapFrom(x => x.Item1.Name.ToUpper()))
 
                 .ForMember(destination => destination.IsActive, source =>
                     source.MapFrom(x => true))
 
                 .ForMember(destination => destination.CreatedBy, source =>
-                    source.MapFrom(x => x.UserId))
+                    source.MapFrom(x => x.Item2))
 
                 .ForMember(destination => destination.CreatedDate, source =>
                     source.MapFrom(x => DateTime.Now));
