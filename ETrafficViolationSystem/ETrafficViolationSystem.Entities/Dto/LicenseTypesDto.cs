@@ -7,7 +7,7 @@
         public string Title { get; set; }
     }
 
-    public class LicenseTypesInsertDto : BaseInsertDto
+    public class LicenseTypesInsertDto
     {
         public string Title { get; set; }
     }

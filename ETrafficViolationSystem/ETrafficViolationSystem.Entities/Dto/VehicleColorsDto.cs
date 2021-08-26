@@ -11,7 +11,7 @@
         public string ColorCode { get; set; }
     }
 
-    public class VehicleColorsInsertDto : BaseInsertDto
+    public class VehicleColorsInsertDto
     {
         public byte? ColorTypeId { get; set; }
 

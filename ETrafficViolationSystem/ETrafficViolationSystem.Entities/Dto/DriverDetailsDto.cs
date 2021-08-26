@@ -45,7 +45,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         public string DisabilityDescription { get; set; }
     }
 
-    public class DriverDetailsInsertDto : BaseInsertDto
+    public class DriverDetailsInsertDto
     {
         public string FirstName { get; set; }
 

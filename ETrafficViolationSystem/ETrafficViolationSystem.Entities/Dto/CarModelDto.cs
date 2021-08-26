@@ -11,7 +11,7 @@
         public short MakeId { get; set; }
     }
 
-    public class CarModelInsertDto : BaseInsertDto
+    public class CarModelInsertDto
     {
         public string ModelId { get; set; }
 

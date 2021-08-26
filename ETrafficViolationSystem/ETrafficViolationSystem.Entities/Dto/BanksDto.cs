@@ -9,7 +9,7 @@
         public string ShortCode { get; set; }
     }
 
-    public class BanksInsertDto : BaseInsertDto
+    public class BanksInsertDto
     {
         public string Title { get; set; }
 

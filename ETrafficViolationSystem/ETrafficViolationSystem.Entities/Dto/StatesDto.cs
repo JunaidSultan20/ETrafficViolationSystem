@@ -9,7 +9,7 @@
         public int CountryId { get; set; }
     }
 
-    public class StatesInsertDto : BaseInsertDto
+    public class StatesInsertDto
     {
         public string StateTitle { get; set; }
 

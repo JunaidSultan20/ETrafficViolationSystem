@@ -7,7 +7,7 @@
         public string ColorTypeTitle { get; set; }
     }
 
-    public class VehicleColorTypeInsertDto : BaseInsertDto
+    public class VehicleColorTypeInsertDto
     {
         public string ColorTypeTitle { get; set; }
     }

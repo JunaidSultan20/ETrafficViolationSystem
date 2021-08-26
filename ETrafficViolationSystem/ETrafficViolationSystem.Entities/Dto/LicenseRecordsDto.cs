@@ -29,7 +29,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         public string LicenseImageBack { get; set; }
     }
 
-    public class LicenseRecordsInsertDto : BaseInsertDto
+    public class LicenseRecordsInsertDto
     {
         public int? DriverId { get; set; }
 

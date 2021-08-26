@@ -7,7 +7,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         
     }
 
-    public class RoleInsertDto : BaseInsertDto
+    public class RoleInsertDto
     {
         public string Name { get; set; }
     }

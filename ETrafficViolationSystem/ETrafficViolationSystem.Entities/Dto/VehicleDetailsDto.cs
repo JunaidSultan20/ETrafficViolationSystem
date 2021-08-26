@@ -15,7 +15,7 @@
         public bool? ClearanceStatus { get; set; }
     }
 
-    public class VehicleDetailsInsertDto : BaseInsertDto
+    public class VehicleDetailsInsertDto
     {
         public int? VehicleId { get; set; }
 

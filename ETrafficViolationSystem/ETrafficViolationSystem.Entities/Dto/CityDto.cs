@@ -11,7 +11,7 @@
         public short StateId { get; set; }
     }
 
-    public class CityInsertDto : BaseInsertDto
+    public class CityInsertDto
     {
         public string CityTitle { get; set; }
 

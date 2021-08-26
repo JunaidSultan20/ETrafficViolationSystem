@@ -13,7 +13,7 @@
         public int? CityId { get; set; }
     }
 
-    public class BankBranchInsertDto : BaseInsertDto
+    public class BankBranchInsertDto
     {
         public int BranchCode { get; set; }
 

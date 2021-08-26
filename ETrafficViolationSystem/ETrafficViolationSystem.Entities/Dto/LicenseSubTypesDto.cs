@@ -11,7 +11,7 @@
         public string SubTypeClass { get; set; }
     }
 
-    public class LicenseSubTypesInsertDto : BaseInsertDto
+    public class LicenseSubTypesInsertDto
     {
         public byte? LicenseTypeId { get; set; }
 

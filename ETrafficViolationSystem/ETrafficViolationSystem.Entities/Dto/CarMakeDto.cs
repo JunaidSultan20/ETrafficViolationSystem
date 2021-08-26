@@ -9,7 +9,7 @@
         public int OriginCountryId { get; set; }
     }
 
-    public class CarMakeInsertDto : BaseInsertDto
+    public class CarMakeInsertDto
     {
         public string MakeTitle { get; set; }
 

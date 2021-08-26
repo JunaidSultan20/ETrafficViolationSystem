@@ -7,7 +7,7 @@
         public string Title { get; set; }
     }
 
-    public class PaymentModeInsertDto : BaseInsertDto
+    public class PaymentModeInsertDto
     {
         public string Title { get; set; }
     }

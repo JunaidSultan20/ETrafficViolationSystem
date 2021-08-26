@@ -29,7 +29,7 @@
         public short ColorId { get; set; }
     }
 
-    public class VehiclesInsertDto : BaseInsertDto
+    public class VehiclesInsertDto
     {
         public string ChassisNo { get; set; }
 

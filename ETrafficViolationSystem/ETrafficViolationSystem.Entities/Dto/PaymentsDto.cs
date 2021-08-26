@@ -17,7 +17,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         public int BankBranchId { get; set; }
     }
 
-    public class PaymentsInsertDto : BaseInsertDto
+    public class PaymentsInsertDto
     {
         public int? TotalAmount { get; set; }
 

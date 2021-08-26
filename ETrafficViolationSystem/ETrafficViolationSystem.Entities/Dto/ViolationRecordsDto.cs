@@ -25,7 +25,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         public string BookedBy { get; set; }
     }
 
-    public class ViolationRecordsInsertDto : BaseInsertDto
+    public class ViolationRecordsInsertDto
     {
         public int? LicenseNo { get; set; }
 

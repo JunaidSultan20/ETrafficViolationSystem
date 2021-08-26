@@ -7,7 +7,7 @@
         public string BodyType { get; set; }
     }
 
-    public class VehicleBodyTypeInsertDto : BaseInsertDto
+    public class VehicleBodyTypeInsertDto
     {
         public string BodyType { get; set; }
     }

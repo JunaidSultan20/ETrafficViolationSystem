@@ -19,7 +19,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         public DateTime PaidUpToDate { get; set; }
     }
 
-    public class TaxDetailsInsertDto : BaseInsertDto
+    public class TaxDetailsInsertDto
     {
         public int? VehicleId { get; set; }
 

@@ -43,7 +43,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         public string OfficerImage { get; set; }
     }
 
-    public class OfficersInsertDto : BaseInsertDto
+    public class OfficersInsertDto
     {
         public string FirstName { get; set; }
 

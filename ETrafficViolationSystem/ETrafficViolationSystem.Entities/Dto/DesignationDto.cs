@@ -9,7 +9,7 @@
         public byte? ReportsTo { get; set; }
     }
 
-    public class DesignationInsertDto : BaseInsertDto
+    public class DesignationInsertDto
     {
         public string Title { get; set; }
 

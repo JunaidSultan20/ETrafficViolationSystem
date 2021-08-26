@@ -9,7 +9,7 @@
         public int InfractionId { get; set; }
     }
 
-    public class ViolationRecordDetailsInsertDto : BaseInsertDto
+    public class ViolationRecordDetailsInsertDto
     {
         public int? ViolationId { get; set; }
 

@@ -7,7 +7,7 @@
         public string ClassTitle { get; set; }
     }
 
-    public class VehicleClassInsertDto : BaseInsertDto
+    public class VehicleClassInsertDto
     {
         public string ClassTitle { get; set; }
     }

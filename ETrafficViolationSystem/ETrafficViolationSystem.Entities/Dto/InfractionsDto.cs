@@ -11,7 +11,7 @@
         public byte Points { get; set; }
     }
 
-    public class InfractionsInsertDto : BaseInsertDto
+    public class InfractionsInsertDto
     {
         public string Description { get; set; }
 

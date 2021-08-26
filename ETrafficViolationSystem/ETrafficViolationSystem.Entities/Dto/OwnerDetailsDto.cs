@@ -37,7 +37,7 @@ namespace ETrafficViolationSystem.Entities.Dto
         public string OwnerImage { get; set; }
     }
 
-    public class OwnerDetailsInsertDto : BaseInsertDto
+    public class OwnerDetailsInsertDto
     {
         public string FirstName { get; set; }
 
