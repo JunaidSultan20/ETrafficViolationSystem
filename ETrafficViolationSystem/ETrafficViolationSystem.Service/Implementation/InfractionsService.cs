@@ -8,6 +8,7 @@ using AutoMapper;
 using ETrafficViolationSystem.Data.UnitOfWork.Interface;
 using ETrafficViolationSystem.Entities.Dto;
 using ETrafficViolationSystem.Entities.Models;
+using ETrafficViolationSystem.Entities.Request.QueryParameters;
 using ETrafficViolationSystem.Entities.Response;
 using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Http;
@@ -28,13 +29,15 @@ namespace ETrafficViolationSystem.Service.Implementation
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList()
+        public async Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList(PaginationQueryParameters paginationQueryParameters)
         {
-            IEnumerable<Infractions> result = await _unitOfWork.Repository<Infractions>().Get(x => x.IsActive);
+            IEnumerable<Infractions> result = await _unitOfWork.Repository<Infractions>()
+                .GetWithPagination(x => x.IsActive, Convert.ToInt32(paginationQueryParameters.PageNumber),
+                    Convert.ToInt32(paginationQueryParameters.PageSize));
             if (result == null)
                 return new BaseResponse<IEnumerable<InfractionsDto>>(HttpStatusCode.NotFound, null);
             return new BaseResponse<IEnumerable<InfractionsDto>>(HttpStatusCode.OK, null,
-                _mapper.Map<IEnumerable<InfractionsDto>>(result), result.Count());
+                _mapper.Map<IEnumerable<InfractionsDto>>(result), await _unitOfWork.Repository<Infractions>().Count);
         }
 
         public async Task<BaseResponse<InfractionsDto>> GetInfractionById(int id)

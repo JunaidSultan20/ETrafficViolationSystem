@@ -26,6 +26,12 @@ namespace ETrafficViolationSystem.Data.Repository.Implementation
             return Task.Run(() => _dbSet.Where(expression).AsNoTracking().AsQueryable());
         }
 
+        public Task<IQueryable<TEntity>> GetWithPagination(Expression<Func<TEntity, bool>> expression, int pageNumber,
+            int pageLimit)
+        {
+            return Task.Run(() => _dbSet.Where(expression).Skip((pageNumber - 1) * pageLimit).Take(pageLimit));
+        }
+
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
         {
             return await _dbSet.FirstOrDefaultAsync(expression);
