@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ETrafficViolationSystem.Entities.Dto;
 using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Entities.Request;
+using ETrafficViolationSystem.Entities.Request.QueryParameters;
 using ETrafficViolationSystem.Entities.Response;
 using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -24,9 +25,9 @@ namespace ETrafficViolationSystem.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<IEnumerable<InfractionsDto>>>> GetInfractionsList()
+        public async Task<ActionResult<BaseResponse<IEnumerable<InfractionsDto>>>> GetInfractionsList([FromQuery] PaginationQueryParameters paginationQueryParameters)
         {
-            BaseResponse<IEnumerable<InfractionsDto>> response = await _infractionsService.GetInfractionsList();
+            BaseResponse<IEnumerable<InfractionsDto>> response = await _infractionsService.GetInfractionsList(paginationQueryParameters);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return NotFound(response);
             return Ok(response);

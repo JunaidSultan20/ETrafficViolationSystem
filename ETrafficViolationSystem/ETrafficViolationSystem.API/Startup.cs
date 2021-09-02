@@ -52,9 +52,11 @@ namespace ETrafficViolationSystem.API
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                    .AllowAnyOrigin()
+                    
                     .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true)
+                    .AllowCredentials());
             });
 
             // Database Context
@@ -163,7 +165,6 @@ namespace ETrafficViolationSystem.API
                             }
                         },
                         new string[] {}
-
                     }
                 });
             });
