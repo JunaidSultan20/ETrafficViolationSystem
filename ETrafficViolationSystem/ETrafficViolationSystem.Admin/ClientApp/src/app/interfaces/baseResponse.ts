@@ -3,7 +3,7 @@ export interface IBaseResponse<T> {
   message: string;
   isSuccessful: boolean;
   result: T;
-  totalRecords: number | null;
+  totalRecords: number | undefined;
   errors: string[];
 }
 

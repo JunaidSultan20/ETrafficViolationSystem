@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {HelperService} from "./services/helper.service";
+import { HelperService } from "./modules/shared/services/helper.service";
 
 @Component({
   selector: 'app-root',
