@@ -8,5 +8,12 @@ namespace ETrafficViolationSystem.Common.ExtensionMethods
         {
             return Convert.ToInt32(value);
         }
+
+        public static bool IsNullOrEmptyOrWhiteSpace(this string value)
+        {
+            if (value is null or " " or "")
+                return true;
+            return false;
+        }
     }
 }

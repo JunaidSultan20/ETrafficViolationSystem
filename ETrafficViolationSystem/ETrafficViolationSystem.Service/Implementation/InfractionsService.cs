@@ -5,14 +5,15 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using ETrafficViolationSystem.Common.ExtensionMethods;
 using ETrafficViolationSystem.Data.UnitOfWork.Interface;
 using ETrafficViolationSystem.Entities.Dto;
 using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Entities.Request.QueryParameters;
 using ETrafficViolationSystem.Entities.Response;
+using ETrafficViolationSystem.Service.Extensions;
 using ETrafficViolationSystem.Service.Interface;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace ETrafficViolationSystem.Service.Implementation
 {
@@ -21,23 +22,33 @@ namespace ETrafficViolationSystem.Service.Implementation
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IPropertyMappingService _propertyMappingService;
 
-        public InfractionsService(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public InfractionsService(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor, IPropertyMappingService propertyMappingService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _propertyMappingService = propertyMappingService;
         }
 
-        public async Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList(PaginationQueryParameters paginationQueryParameters)
+        public async Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList(QueryParameters queryParameters)
         {
-            IEnumerable<Infractions> result = await _unitOfWork.Repository<Infractions>()
-                .GetWithPagination(x => x.IsActive, Convert.ToInt32(paginationQueryParameters.PageNumber),
-                    Convert.ToInt32(paginationQueryParameters.PageSize));
+            var infractionsPropertyMappingsDictionary =
+                _propertyMappingService.GetPropertyMapping<InfractionsDto, Infractions>();
+            
+            IQueryable<Infractions> result = await _unitOfWork.Repository<Infractions>()
+                .GetWithPagination(x => x.IsActive, Convert.ToInt32(queryParameters.PageNumber),
+                    Convert.ToInt32(queryParameters.PageSize));
+            
             if (result == null)
                 return new BaseResponse<IEnumerable<InfractionsDto>>(HttpStatusCode.NotFound, null);
+            if (!queryParameters.OrderBy.IsNullOrEmptyOrWhiteSpace())
+            {
+                result = result.ApplySort(queryParameters.OrderBy, infractionsPropertyMappingsDictionary);
+            }
             return new BaseResponse<IEnumerable<InfractionsDto>>(HttpStatusCode.OK, null,
-                _mapper.Map<IEnumerable<InfractionsDto>>(result), await _unitOfWork.Repository<Infractions>().Count);
+                _mapper.Map<IEnumerable<InfractionsDto>>(result.AsEnumerable()), await _unitOfWork.Repository<Infractions>().Count);
         }
 
         public async Task<BaseResponse<InfractionsDto>> GetInfractionById(int id)

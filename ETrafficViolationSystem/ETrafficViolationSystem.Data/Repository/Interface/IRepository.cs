@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ETrafficViolationSystem.Common.Enumerators;
 
 namespace ETrafficViolationSystem.Data.Repository.Interface
 {
@@ -11,7 +12,8 @@ namespace ETrafficViolationSystem.Data.Repository.Interface
 
         Task<IQueryable<TEntity>> Get(Expression<Func<TEntity, bool>> expression);
 
-        Task<IQueryable<TEntity>> GetWithPagination(Expression<Func<TEntity, bool>> expression, int pageNumber, int pageLimit);
+        Task<IQueryable<TEntity>> GetWithPagination(Expression<Func<TEntity, bool>> expression, int pageNumber, 
+            int pageLimit, string sortBy = null, SortingOrder? order = null);
 
         Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
 

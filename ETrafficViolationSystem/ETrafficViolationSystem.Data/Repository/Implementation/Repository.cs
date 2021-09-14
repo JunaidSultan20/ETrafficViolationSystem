@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using ETrafficViolationSystem.Common.Enumerators;
 
 namespace ETrafficViolationSystem.Data.Repository.Implementation
 {
@@ -27,7 +28,7 @@ namespace ETrafficViolationSystem.Data.Repository.Implementation
         }
 
         public Task<IQueryable<TEntity>> GetWithPagination(Expression<Func<TEntity, bool>> expression, int pageNumber,
-            int pageLimit)
+            int pageLimit, string sortBy = null, SortingOrder? order = null)
         {
             return Task.Run(() => _dbSet.Where(expression).Skip((pageNumber - 1) * pageLimit).Take(pageLimit));
         }

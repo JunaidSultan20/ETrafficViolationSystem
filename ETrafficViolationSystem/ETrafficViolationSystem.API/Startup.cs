@@ -128,8 +128,8 @@ namespace ETrafficViolationSystem.API
                     ValidateAudience = false,
                     ValidIssuer = Configuration.GetValue<string>("JwtConfig:Issuer"),
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF32.GetBytes(Configuration.GetValue<string>("JwtConfig:Secret"))),
-                    ValidateIssuer = false,
-                    RequireExpirationTime = false,
+                    ValidateIssuer = true,
+                    RequireExpirationTime = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };

@@ -54,7 +54,7 @@ namespace ETrafficViolationSystem.Entities.Response
                 case HttpStatusCode.Unauthorized:
                     StatusCode = HttpStatusCode.Unauthorized;
                     Message = message ?? "Invalid Authentication Request.";
-                    IsSuccessful = true;
+                    IsSuccessful = false;
                     break;
                 case HttpStatusCode.NotFound:
                     StatusCode = HttpStatusCode.NotFound;

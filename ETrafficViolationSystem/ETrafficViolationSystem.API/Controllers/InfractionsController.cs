@@ -25,9 +25,9 @@ namespace ETrafficViolationSystem.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<IEnumerable<InfractionsDto>>>> GetInfractionsList([FromQuery] PaginationQueryParameters paginationQueryParameters)
+        public async Task<ActionResult<BaseResponse<IEnumerable<InfractionsDto>>>> GetInfractionsList([FromQuery] QueryParameters queryParameters)
         {
-            BaseResponse<IEnumerable<InfractionsDto>> response = await _infractionsService.GetInfractionsList(paginationQueryParameters);
+            BaseResponse<IEnumerable<InfractionsDto>> response = await _infractionsService.GetInfractionsList(queryParameters);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return NotFound(response);
             return Ok(response);
