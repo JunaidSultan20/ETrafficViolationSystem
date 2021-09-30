@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Infractions List</h4>
+        <button class="btn btn-primary float-right mr-1" routerLink="/infractions/add">Create</button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered mb-0">
+            <thead>
+              <tr>
+                <th scope="col" class="text-nowrap">Id</th>
+                <th scope="col" class="text-nowrap">Description</th>
+                <th scope="col" class="text-nowrap">Penalty</th>
+                <th scope="col" class="text-nowrap">Points</th>
+                <!--<th scope="col" class="text-nowrap">Created By</th>
+                <th scope="col" class="text-nowrap">Created Date</th>
+                <th scope="col" class="text-nowrap">Updated By</th>
+                <th scope="col" class="text-nowrap">Updated Date</th>-->
+                <th scope="col" class="text-nowrap">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let infraction of infractionsList | paginate: {itemsPerPage: pageSize,
+              currentPage: currentPage, totalItems: totalRecords}" >
+                <td>{{ infraction.infractionId }}</td>
+                <td>{{ infraction.description }}</td>
+                <td class="text-center">{{ infraction.penalty | currency: 'PKR. ' }}</td>
+                <td class="text-center">{{ infraction.points }}</td>
+                <!--<td class="text-center">{{ infraction.createdBy }}</td>
+                <td class="text-center">{{ infraction.createdDate | date:'mediumDate' }}</td>
+                <td class="text-center">{{ infraction.updatedBy ?? '-' }}</td>
+                <td [ngClass]="{'text-center': infraction.updatedBy === null }">{{ infraction.updateDate ?? '-' }}</td>-->
+                <!--<td class="text-center">
+                  <fa-icon [icon]="faEdit" class="text-primary"></fa-icon>
+                  &nbsp;
+                  <fa-icon [icon]="faTimes" class="text-danger" (click)="deleteInfraction(infraction.infractionId)"></fa-icon>
+                </td>-->
+                <td>
+                  <div class="dropdown text-center">
+                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow" data-toggle="dropdown">
+                      <fa-icon [icon]="faEllipsisV"></fa-icon>
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="javascript:void(0);">
+                        <fa-icon [icon]="faEdit" class="p-r-5 margin-left-25"></fa-icon>
+                        <span>Edit</span>
+                      </a>
+                      <a class="dropdown-item" href="javascript:void(0);">
+                        <fa-icon [icon]="faTimes" class="p-r-5 margin-left-25"></fa-icon>
+                        <span>Delete</span>
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <app-pagination class="float-right mr-1" [paginationConfig]="paginationConfig"
+                          (pageChange)="handlePageChange($event)" (pageSize)="itemsPerPage($event)">
+          </app-pagination>
+        </div>
+        <ngx-spinner size="medium" color="#7367F0" bdColor="transparent" [fullScreen]="false" type="ball-fussion">
+          <p class="loading" style="color: #7367F0">Loading...</p>
+        </ngx-spinner>
+      </div>
+    </div>
+  </div>
+</div>

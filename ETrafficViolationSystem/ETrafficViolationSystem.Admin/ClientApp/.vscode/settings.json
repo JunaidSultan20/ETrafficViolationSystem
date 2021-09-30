@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/c12587df-75f5-4111-b9b0-7ce665f00653/resourceGroups/ETrafficViolationSystemResourceGroup/providers/Microsoft.Web/sites/ETrafficViolationSystemAdmin",
+    "appService.deploySubpath": "dist\\ClientApp"
+}

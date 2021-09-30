@@ -1,0 +1,81 @@
+<!-- Begin Infraction Add Form -->
+<div class="row">
+  <div class="col-md-6 col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"></h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="infractionsFormGroup" class="form form-horizontal" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                  <label for="description">Description</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" id="description" class="form-control"
+                         placeholder="Description" formControlName="description" required />
+                  <div *ngIf="infractionsFormGroup.controls.description.errors?.required && (infractionsFormGroup.controls.description.dirty
+                  || infractionsFormGroup.controls.description.touched)" class="text-danger">Description is required.</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                  <label for="penalty">Penalty</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="number" id="penalty" class="form-control"
+                         placeholder="100" formControlName="penalty" required="required" />
+                  <div *ngIf="infractionsFormGroup.controls.penalty.errors?.required && (infractionsFormGroup.controls.penalty.dirty
+                  || infractionsFormGroup.controls.penalty.touched)" class="text-danger">
+                    Penalty is required.
+                  </div>
+                  <div *ngIf="infractionsFormGroup.controls.penalty.errors?.minlength && (infractionsFormGroup.controls.penalty.dirty
+                  || infractionsFormGroup.controls.penalty.touched)" class="text-danger">
+                    Penalty should be greater than or equal to 100.
+                  </div>
+                  <div *ngIf="infractionsFormGroup.controls.penalty.errors?.maxlength && (infractionsFormGroup.controls.penalty.dirty
+                  || infractionsFormGroup.controls.penalty.touched)" class="text-danger">
+                    Penalty should be less than or equal to 1000.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group row">
+                <div class="col-sm-3 col-form-label">
+                  <label for="points">Points</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="number" id="points" class="form-control"
+                         placeholder="5" formControlName="points" required="required" />
+                  <div *ngIf="infractionsFormGroup.controls.points.errors?.required && (infractionsFormGroup.controls.points.dirty
+                  || infractionsFormGroup.controls.points.touched)" class="text-danger">
+                    Points is required.
+                  </div>
+                  <div *ngIf="infractionsFormGroup.controls.points.errors?.minlength && (infractionsFormGroup.controls.points.dirty
+                  || infractionsFormGroup.controls.points.touched)" class="text-danger">
+                    Points should be greater than or equal to 1.
+                  </div>
+                  <div *ngIf="infractionsFormGroup.controls.points.errors?.maxlength && (infractionsFormGroup.controls.points.dirty
+                  || infractionsFormGroup.controls.points.touched)" class="text-danger">
+                    Points should be less than or equal to 10.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-9 offset-sm-3">
+              <button type="submit" class="btn btn-primary mr-1" [disabled]="infractionsFormGroup.pristine">
+                Submit
+              </button>
+              <button type="reset" class="btn btn-outline-secondary" (click)="reset()">Reset</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

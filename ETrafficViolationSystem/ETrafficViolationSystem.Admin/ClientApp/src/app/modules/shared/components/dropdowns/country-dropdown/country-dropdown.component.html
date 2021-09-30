@@ -1,0 +1,6 @@
+<div class="col-md-3 mb-1">
+  <label>Country</label>
+  <select class="select2 form-control form-control-lg">
+    <option *ngFor="let country of countryList" [value]="country.id">{{ country.title }}</option>
+  </select>
+</div>
