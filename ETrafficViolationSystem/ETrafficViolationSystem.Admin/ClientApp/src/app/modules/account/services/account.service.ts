@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {RefreshTokenDto} from "../models/refreshToken";
 import {Observable} from "rxjs";
-import {IBaseResponse} from "../../../interfaces/baseResponse";
+import {IBaseResponse} from "../../shared/interfaces/baseResponse";
 import {ILoginDto} from "../interfaces/login";
 import {AuthenticationDto} from "../models/authentication";
 import {environment} from "../../../../environments/environment";

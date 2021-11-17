@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {catchError, tap} from "rxjs/operators";
 import {Observable, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {IBaseResponse} from "../../../interfaces/baseResponse";
+import {IBaseResponse} from "../../shared/interfaces/baseResponse";
 import {IInfractions} from "../interfaces/infractions";
 import {environment} from "../../../../environments/environment";
 import {Infraction, InfractionsInsertRequest} from "../models/infraction";

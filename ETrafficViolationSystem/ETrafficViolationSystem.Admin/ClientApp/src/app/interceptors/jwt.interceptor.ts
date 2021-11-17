@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {HelperService} from "../modules/shared/services/helper.service";
+import { HelperService } from "../modules/shared/services/helper.service";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {

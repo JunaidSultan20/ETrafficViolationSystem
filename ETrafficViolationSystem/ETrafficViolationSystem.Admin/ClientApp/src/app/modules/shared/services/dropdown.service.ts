@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
-import {IBaseResponse} from "../../../interfaces/baseResponse";
+import {IBaseResponse} from "../interfaces/baseResponse";
 import {environment} from "../../../../environments/environment";
 import {catchError, tap} from "rxjs/operators";
 import {ICountry} from "../interfaces/country";
