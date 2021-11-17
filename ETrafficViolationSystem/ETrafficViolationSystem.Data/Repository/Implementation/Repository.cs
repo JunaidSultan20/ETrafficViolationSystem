@@ -3,6 +3,7 @@ using ETrafficViolationSystem.Data.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ETrafficViolationSystem.Common.Enumerators;
@@ -31,6 +32,19 @@ namespace ETrafficViolationSystem.Data.Repository.Implementation
             int pageLimit, string sortBy = null, SortingOrder? order = null)
         {
             return Task.Run(() => _dbSet.Where(expression).Skip((pageNumber - 1) * pageLimit).Take(pageLimit));
+        }
+
+        public async Task<IQueryable<TEntity>> Include(params Expression<Func<TEntity, object>>[] includes)
+        {
+            return await Task.Run(() =>
+            {
+                IQueryable<TEntity> query = null;
+                foreach (var statement in includes)
+                {
+                    query = _dbSet.Include(statement);
+                }
+                return query;
+            });
         }
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)

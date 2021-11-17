@@ -15,6 +15,8 @@ namespace ETrafficViolationSystem.Data.Repository.Interface
         Task<IQueryable<TEntity>> GetWithPagination(Expression<Func<TEntity, bool>> expression, int pageNumber, 
             int pageLimit, string sortBy = null, SortingOrder? order = null);
 
+        Task<IQueryable<TEntity>> Include(params Expression<Func<TEntity, object>>[] includes);
+
         Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression);
 
         Task Add(TEntity entity);
