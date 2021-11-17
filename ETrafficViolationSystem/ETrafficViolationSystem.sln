@@ -48,6 +48,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ClientApp", "ETrafficViolat
 		SlnRelativePath = "ETrafficViolationSystem.Admin\ClientApp\"
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5F4FEE42-FBA4-4FC4-9C6E-EF29B169D9B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETrafficViolationSystem.UnitTest", "ETrafficViolationSystem.UnitTest\ETrafficViolationSystem.UnitTest.csproj", "{5E5B2750-0DBA-4E5E-8012-6D2667C8BA6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,9 +79,12 @@ Global
 		{2B38B539-2AA7-4386-8238-5B3589624E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B38B539-2AA7-4386-8238-5B3589624E6D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59998737-1A7E-4B1F-84B1-2507490B2D5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59998737-1A7E-4B1F-84B1-2507490B2D5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59998737-1A7E-4B1F-84B1-2507490B2D5D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{59998737-1A7E-4B1F-84B1-2507490B2D5D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5E5B2750-0DBA-4E5E-8012-6D2667C8BA6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E5B2750-0DBA-4E5E-8012-6D2667C8BA6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E5B2750-0DBA-4E5E-8012-6D2667C8BA6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5B2750-0DBA-4E5E-8012-6D2667C8BA6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +97,7 @@ Global
 		{2B38B539-2AA7-4386-8238-5B3589624E6D} = {18041538-E312-43FB-A866-321B06494530}
 		{6BD1AF72-88F6-4B4C-B9BF-5BC554B03C8F} = {4F2C411A-7B53-4135-ABED-D99861763191}
 		{59998737-1A7E-4B1F-84B1-2507490B2D5D} = {6BD1AF72-88F6-4B4C-B9BF-5BC554B03C8F}
+		{5E5B2750-0DBA-4E5E-8012-6D2667C8BA6F} = {5F4FEE42-FBA4-4FC4-9C6E-EF29B169D9B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03DBD89C-263D-4362-A712-907EB083C9A0}
