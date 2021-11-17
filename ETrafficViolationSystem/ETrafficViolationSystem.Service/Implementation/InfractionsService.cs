@@ -32,21 +32,25 @@ namespace ETrafficViolationSystem.Service.Implementation
             _propertyMappingService = propertyMappingService;
         }
 
-        public async Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList(QueryParameters queryParameters)
+        public async Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList(BaseQueryParameters queryParameters)
         {
+            if (!_propertyMappingService.ValidMappingExists<InfractionsDto, Infractions>(queryParameters.OrderBy))
+                return new BaseResponse<IEnumerable<InfractionsDto>>(HttpStatusCode.BadRequest,
+                    "Invalid Order By Clause");
+
             var infractionsPropertyMappingsDictionary =
                 _propertyMappingService.GetPropertyMapping<InfractionsDto, Infractions>();
             
             IQueryable<Infractions> result = await _unitOfWork.Repository<Infractions>()
                 .GetWithPagination(x => x.IsActive, Convert.ToInt32(queryParameters.PageNumber),
                     Convert.ToInt32(queryParameters.PageSize));
-            
+
             if (result == null)
                 return new BaseResponse<IEnumerable<InfractionsDto>>(HttpStatusCode.NotFound, null);
+
             if (!queryParameters.OrderBy.IsNullOrEmptyOrWhiteSpace())
-            {
                 result = result.ApplySort(queryParameters.OrderBy, infractionsPropertyMappingsDictionary);
-            }
+
             return new BaseResponse<IEnumerable<InfractionsDto>>(HttpStatusCode.OK, null,
                 _mapper.Map<IEnumerable<InfractionsDto>>(result.AsEnumerable()), await _unitOfWork.Repository<Infractions>().Count);
         }
@@ -94,10 +98,12 @@ namespace ETrafficViolationSystem.Service.Implementation
 
         public async Task<BaseResponse<InfractionsDto>> Update(InfractionsUpdateDto infractionsUpdateDto, int id)
         {
+            Tuple<InfractionsUpdateDto, int> sourceTuple = Tuple.Create(infractionsUpdateDto,
+                Convert.ToInt32(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)));
             Infractions entity = await _unitOfWork.Repository<Infractions>().FindAsync(x => x.InfractionId == id);
             if (entity == null)
                 return new BaseResponse<InfractionsDto>(HttpStatusCode.NotFound, null);
-            _mapper.Map<InfractionsUpdateDto, Infractions>(infractionsUpdateDto, entity);
+            _mapper.Map<Tuple<InfractionsUpdateDto, int>, Infractions>(sourceTuple, entity);
             await _unitOfWork.Repository<Infractions>().Update(entity);
             await _unitOfWork.Commit();
             return new BaseResponse<InfractionsDto>(HttpStatusCode.NoContent, "Resource Updated Successfully.",

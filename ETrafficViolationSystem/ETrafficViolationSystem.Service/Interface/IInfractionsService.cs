@@ -8,7 +8,7 @@ namespace ETrafficViolationSystem.Service.Interface
 {
     public interface IInfractionsService
     {
-        Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList(QueryParameters queryParameters);
+        Task<BaseResponse<IEnumerable<InfractionsDto>>> GetInfractionsList(BaseQueryParameters queryParameters);
 
         Task<BaseResponse<InfractionsDto>> GetInfractionById(int id);
 

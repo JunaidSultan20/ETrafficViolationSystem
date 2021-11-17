@@ -21,9 +21,9 @@ namespace ETrafficViolationSystem.Service.Implementation
 
         public async Task<int> AddLog(Exception exception, HttpContext httpContext)
         {
-            Tuple<HttpContext, Exception> sourceTuple = Tuple.Create(httpContext, exception);
+            Tuple<Exception, HttpContext> sourceTuple = Tuple.Create(exception, httpContext);
             ExceptionLog exceptionLog = new ExceptionLog();
-            _mapper.Map<Tuple<HttpContext, Exception>, ExceptionLog>(sourceTuple, exceptionLog);
+            _mapper.Map<Tuple<Exception, HttpContext>, ExceptionLog>(sourceTuple, exceptionLog);
             await _unitOfWork.Repository<ExceptionLog>().Add(exceptionLog);
             await _unitOfWork.Commit();
             return exceptionLog.Id;
