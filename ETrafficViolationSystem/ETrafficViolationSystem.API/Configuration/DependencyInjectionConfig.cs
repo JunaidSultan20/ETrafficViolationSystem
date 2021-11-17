@@ -24,7 +24,6 @@ namespace ETrafficViolationSystem.API.Configuration
             service.AddScoped<RoleManager<Roles>>();
             service.AddScoped<JwtConfig>();
             service.AddTransient<IPropertyMappingService, PropertyMappingService>();
-            //service.AddScoped<ResponseMessages>();
         }
     }
 }

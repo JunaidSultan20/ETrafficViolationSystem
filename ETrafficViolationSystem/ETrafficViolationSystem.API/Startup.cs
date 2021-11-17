@@ -41,18 +41,17 @@ namespace ETrafficViolationSystem.API
             {
                 options.AddConsole();
                 options.SetMinimumLevel(LogLevel.Information);
-                options.AddApplicationInsights(Configuration.GetValue<string>("ApplicationInsight:InstrumentationKey"));
-                options.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Trace);
+                //options.AddApplicationInsights(Configuration.GetValue<string>("ApplicationInsight:InstrumentationKey"));
+                //options.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Trace);
             });
 
-            services.AddApplicationInsightsTelemetry(
-                Configuration.GetValue<string>("ApplicationInsight:InstrumentationKey"));
+            //services.AddApplicationInsightsTelemetry(
+            //    Configuration.GetValue<string>("ApplicationInsight:InstrumentationKey"));
             
             // CORS Policy
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder
-                    
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .SetIsOriginAllowed(origin => true)
@@ -73,6 +72,13 @@ namespace ETrafficViolationSystem.API
                 configuration.RegisterValidatorsFromAssemblyContaining<Startup>();
                 configuration.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
             }).AddXmlDataContractSerializerFormatters();
+
+            // Caching The Response
+            services.AddResponseCaching(options =>
+            {
+                options.MaximumBodySize = 1024;
+                options.UseCaseSensitivePaths = true;
+            });
 
             // Registering AutoMapper Mappings
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -185,6 +191,7 @@ namespace ETrafficViolationSystem.API
             }
             else
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
@@ -199,11 +206,13 @@ namespace ETrafficViolationSystem.API
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
+
+            app.UseResponseCaching();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

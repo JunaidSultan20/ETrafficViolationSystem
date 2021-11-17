@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using ETrafficViolationSystem.Entities.Dto;
-using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Entities.Request;
 using ETrafficViolationSystem.Entities.Request.QueryParameters;
 using ETrafficViolationSystem.Entities.Response;
@@ -24,8 +23,9 @@ namespace ETrafficViolationSystem.API.Controllers
             _infractionsService = infractionsService;
         }
 
+        [ResponseCache(NoStore = false, Duration = 10, Location = ResponseCacheLocation.Any)]
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<IEnumerable<InfractionsDto>>>> GetInfractionsList([FromQuery] QueryParameters queryParameters)
+        public async Task<ActionResult<BaseResponse<IEnumerable<InfractionsDto>>>> GetInfractionsList([FromQuery] BaseQueryParameters queryParameters)
         {
             BaseResponse<IEnumerable<InfractionsDto>> response = await _infractionsService.GetInfractionsList(queryParameters);
             if (response.StatusCode == HttpStatusCode.NotFound)
@@ -48,7 +48,26 @@ namespace ETrafficViolationSystem.API.Controllers
             BaseResponse<InfractionsDto> response = await _infractionsService.Add(request.Infraction);
             if (response.StatusCode == HttpStatusCode.BadRequest)
                 return BadRequest(response);
-            return CreatedAtRoute("GetInfractionById", new { id = response.Result.InfractionId }, response);
+            return CreatedAtRoute("GetInfractionById", new { id = response.Result.Id }, response);
+        }
+
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<BaseResponse<InfractionsDto>>> Update([FromRoute] int id,
+            [FromBody] InfractionsUpdateRequest request)
+        {
+            BaseResponse<InfractionsDto> response = await _infractionsService.Update(request.Infraction, id);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+            return StatusCode((int)HttpStatusCode.NoContent, response);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<BaseResponse<object>>> Delete([FromRoute] int id)
+        {
+            BaseResponse<object> response = await _infractionsService.Delete(id);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+                return BadRequest(response);
+            return StatusCode((int)HttpStatusCode.NoContent, response);
         }
     }
 }
