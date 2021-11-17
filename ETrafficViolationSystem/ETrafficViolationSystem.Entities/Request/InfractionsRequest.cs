@@ -12,7 +12,7 @@ namespace ETrafficViolationSystem.Entities.Request
         public InfractionsInsertDto Infraction { get; set; }
     }
 
-    public class InfractionsUpdateRequest : BaseRequest
+    public class InfractionsUpdateRequest
     {
         public InfractionsUpdateDto Infraction { get; set; }
     }

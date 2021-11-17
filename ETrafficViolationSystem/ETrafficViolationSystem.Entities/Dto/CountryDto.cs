@@ -1,10 +1,17 @@
-﻿namespace ETrafficViolationSystem.Entities.Dto
+﻿using System.Collections.Generic;
+
+namespace ETrafficViolationSystem.Entities.Dto
 {
     /// <summary>
     /// Country Dto
     /// </summary>
     public class CountryDto : BaseDto
     {
+        public CountryDto()
+        {
+            States = new HashSet<StatesDto>();
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }
@@ -14,6 +21,8 @@
         public string CountryCode { get; set; }
 
         public string DialingCode { get; set; }
+
+        public virtual ICollection<StatesDto> States { get; set; }
     }
 
     /// <summary>

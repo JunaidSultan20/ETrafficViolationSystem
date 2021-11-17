@@ -13,7 +13,14 @@ namespace ETrafficViolationSystem.Entities.Mappings
         public StatesMapping()
         {
             //Mapping For States -> StatesDto
-            CreateMap<States, StatesDto>();
+            CreateMap<States, StatesDto>()
+                .ForMember(destination => destination.StateId,
+                    source => source.MapFrom(x => x.StateId))
+
+                .ForMember(destination => destination.StateTitle,
+                    source => source.MapFrom(x => x.StateTitle))
+
+                ;
 
             //Mapping For StatesInsertDto -> States
             CreateMap<Tuple<StatesInsertDto, int>, States>()

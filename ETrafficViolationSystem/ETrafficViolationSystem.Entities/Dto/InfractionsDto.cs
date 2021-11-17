@@ -2,7 +2,7 @@
 {
     public class InfractionsDto : BaseDto
     {
-        public int? InfractionId { get; set; }
+        public int? Id { get; set; }
 
         public string Description { get; set; }
 

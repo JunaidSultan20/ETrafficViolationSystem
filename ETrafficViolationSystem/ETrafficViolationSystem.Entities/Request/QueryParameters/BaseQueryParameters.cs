@@ -2,14 +2,12 @@
 
 namespace ETrafficViolationSystem.Entities.Request.QueryParameters
 {
-    public class QueryParameters
+    public class BaseQueryParameters
     {
-        public string PageNumber { get; set; }
+        public int PageNumber { get; set; }
         
-        public string PageSize { get; set; }
+        public int PageSize { get; set; }
 
         public string OrderBy { get; set; }
-
-        public SortingOrder? SortingOrder { get; set; }
     }
 }

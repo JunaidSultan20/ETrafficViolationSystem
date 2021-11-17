@@ -19,7 +19,10 @@ namespace ETrafficViolationSystem.Entities.Mappings
                 .ForMember(destination => destination.CountryCode,
                     source => source.MapFrom(x => x.CountryCode))
                 .ForMember(destination => destination.DialingCode,
-                    source => source.MapFrom(x => x.DialingCode));
+                    source => source.MapFrom(x => x.DialingCode))
+                .ForMember(destination => destination.States,
+                    source => source.Condition((src, destination, member) 
+                        => member != null));
         }
     }
 }
