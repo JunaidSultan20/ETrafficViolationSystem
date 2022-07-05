@@ -1,10 +1,13 @@
 ﻿using System;
 using System.IO;
+using ETrafficViolationSystem.Common.Configurations;
 using ETrafficViolationSystem.Data.Context;
 using ETrafficViolationSystem.Data.UnitOfWork.Implementation;
 using ETrafficViolationSystem.Data.UnitOfWork.Interface;
+using ETrafficViolationSystem.Entities.Models;
 using ETrafficViolationSystem.Service.Implementation;
 using ETrafficViolationSystem.Service.Interface;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +32,13 @@ namespace ETrafficViolationSystem.UnitTest.ServicesMock
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddTransient<IInfractionsService, InfractionsService>();
+            services.AddTransient<IAccountService, AccountService>();
+            services.AddScoped<UserManager<Users>>();
+            services.AddScoped<RoleManager<Roles>>();
+            services.AddScoped<JwtConfig>();
+            
+            
+            
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             ServiceProvider serviceBuilder = services.BuildServiceProvider();
             return serviceBuilder;

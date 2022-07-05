@@ -43,15 +43,19 @@ namespace ETrafficViolationSystem.Service.Implementation
             Roles result = await _unitOfWork.Repository<Roles>().FindAsync(x => x.Id == id);
             if (result == null)
                 return new BaseResponse<RolesDto>(HttpStatusCode.NotFound, null);
-            return new BaseResponse<RolesDto>(HttpStatusCode.OK, null, _mapper.Map<RolesDto>(result));
+            return new BaseResponse<RolesDto>(HttpStatusCode.OK, null, _mapper.Map<RolesDto>(result), 1);
         }
 
-        public async Task Add(RoleInsertDto roleInsertDto)
+        public async Task<BaseResponse<RolesDto>> Add(RoleInsertDto roleInsertDto)
         {
             Roles role = _mapper.Map<Roles>(Tuple.Create(roleInsertDto,
                 _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier).ToInt()));
             await _unitOfWork.Repository<Roles>().Add(role);
-            await _unitOfWork.Commit();
+            int result = await _unitOfWork.Commit();
+            if (result > 0)
+                return new BaseResponse<RolesDto>(HttpStatusCode.Created, "Role added successfully.",
+                    _mapper.Map<RolesDto>(role), 1);
+            return new BaseResponse<RolesDto>(HttpStatusCode.BadRequest, "Unable to add the new role.");
         }
     }
 }

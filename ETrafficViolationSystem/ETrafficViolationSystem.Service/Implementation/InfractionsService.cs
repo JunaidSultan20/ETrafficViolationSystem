@@ -106,7 +106,7 @@ namespace ETrafficViolationSystem.Service.Implementation
             _mapper.Map<Tuple<InfractionsUpdateDto, int>, Infractions>(sourceTuple, entity);
             await _unitOfWork.Repository<Infractions>().Update(entity);
             await _unitOfWork.Commit();
-            return new BaseResponse<InfractionsDto>(HttpStatusCode.NoContent, "Resource Updated Successfully.",
+            return new BaseResponse<InfractionsDto>(HttpStatusCode.OK, "Resource Updated Successfully.",
                 _mapper.Map<InfractionsDto>(entity), 1);
         }
 

@@ -2,9 +2,11 @@
 
 namespace ETrafficViolationSystem.Entities.Dto
 {
-    public class RolesDto
+    public class RolesDto : BaseDto
     {
-        
+        public int RoleId { get; set; }
+
+        public string RoleName { get; set; }
     }
 
     public class RoleInsertDto

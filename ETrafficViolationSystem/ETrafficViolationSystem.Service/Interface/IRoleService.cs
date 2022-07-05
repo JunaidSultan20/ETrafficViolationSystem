@@ -11,6 +11,6 @@ namespace ETrafficViolationSystem.Service.Interface
 
         Task<BaseResponse<RolesDto>> GetById(int id);
 
-        Task Add(RoleInsertDto roleInsertDto);
+        Task<BaseResponse<RolesDto>> Add(RoleInsertDto roleInsertDto);
     }
 }
